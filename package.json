@@ -1,0 +1,23 @@
+{
+  "name": "sapient",
+  "version": "0.1.0",
+  "description": "Secure API ENgineering Toolkit",
+  "main": "index.js",
+  "repository": "https://github.com/paragonie/sapient-js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "dependencies": {
+    "libsodium-wrappers": "^0.7.5",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7",
+    "rfc4648": "^1.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0"
+  },
+  "author": "Paragon Initiative Enterprises, LLC",
+  "license": "ISC"
+}
