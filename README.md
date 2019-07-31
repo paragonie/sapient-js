@@ -9,8 +9,6 @@ TLS security breakdown (compromised certificate authority, etc.).
 Sapient allows you to quickly and easily add application-layer cryptography to your API requests
 and responses.
 
-----
-
 ## Features at a Glance
 
 * Secure APIs:
@@ -64,3 +62,7 @@ const {Sapient, SigningSecretKey} = require('sapient');
     }
 })();
 ```
+
+## Things that Use Sapient
+
+* [Chronicle](https://github.com/paragonie/chronicle)
