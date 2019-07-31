@@ -25,13 +25,10 @@ describe('Sapient', function () {
         let alice = await SigningSecretKey.generate();
 
         let signed = await Sapient.signRequest(request, alice);
-
+        let verified = await Sapient.verifySignedRequest(signed, alice.getPublicKey());
         // Valid signature
-        expect(JSON.stringify(signed)).to.be.equal(
-            JSON.stringify(
-                await Sapient.verifySignedRequest(signed, alice.getPublicKey())
-            )
-        );
+        expect(JSON.stringify(signed.form)).to.be.equal(JSON.stringify(verified.form));
+        expect(JSON.stringify(signed.headers)).to.be.equal(JSON.stringify(verified.headers));
 
         // Missing signature
         try {
@@ -57,11 +54,9 @@ describe('Sapient', function () {
     it('Authenticated Requests (Symmetric)', async function () {
         let key = await SharedAuthenticationKey.generate();
         let authed = await Sapient.authenticateRequestWithSharedKey(request, key);
-        expect(JSON.stringify(authed)).to.be.equal(
-            JSON.stringify(
-                await Sapient.verifySymmetricAuthenticatedRequest(authed, key)
-            )
-        );
+        let verified = await Sapient.verifySymmetricAuthenticatedRequest(authed, key);
+        expect(JSON.stringify(authed.form)).to.be.equal(JSON.stringify(verified.form));
+        expect(JSON.stringify(authed.headers)).to.be.equal(JSON.stringify(verified.headers));
     });
 
     it('Encrypted Requests (Symmetric)', async function () {
@@ -70,5 +65,6 @@ describe('Sapient', function () {
         expect(encrypted.body.length).to.be.equal(68);
         let decrypted = await Sapient.decryptFormRequestWithSharedKey(encrypted, key);
         expect(JSON.stringify(request.form)).to.be.equal(JSON.stringify(decrypted.form));
+        expect(JSON.stringify(request.headers)).to.be.equal(JSON.stringify(decrypted.headers));
     });
 });

@@ -56,11 +56,49 @@ const {Sapient, SigningSecretKey} = require('sapient');
     let response = await rp(await Sapient.signFormRequest(request, sk));
     console.log(response.statusCode);
     try {
-        await Sapient.verifySignedRequest(request, sk.getPublicKey());
+        await Sapient.verifySignedResponse(response, sk.getPublicKey());
     } catch (e) {
         console.log(e.message);
     }
 })();
+```
+
+### Real World Example
+
+This code will fetch data from [the PHP Chronicle](https://php-chronicle.pie-hosted.com),
+verify the signature, return an object representing the JSON data that we authenticated.
+
+```javascript
+const rp = require('request-promise-native');
+const {Sapient, SigningPublicKey} = require('sapient');
+
+(async function () {
+    let publicKey = SigningPublicKey.fromString(
+        'MoavD16iqe9-QVhIy-ewD4DMp0QRH-drKfwhfeDAUG0='
+    );
+    let request = {
+        'method': 'GET',
+        'uri': 'https://php-chronicle.pie-hosted.com/chronicle/lookup/WQG3tH3CiLHg_upN0ABhKiYWOGwH3n9l4pM04bXwG54=',
+        'resolveWithFullResponse': true
+    };
+    let response = await rp(request);
+    console.log(await Sapient.decodeSignedJsonResponse(response, publicKey));
+})();
+```
+
+This should result in the following (except with differing timestamps):
+```
+{ version: '1.1.x',
+  datetime: '2019-07-31T03:37:48-04:00',
+  status: 'OK',
+  results: 
+   [ { contents: '{\n    "repository": "paragonie\\/certainty",\n    "sha256": "cb2eca3fbfa232c9e3874e3852d43b33589f27face98eef10242a853d83a437a",\n    "signature": "d368533011b7e9eb09d1cc3a78faef70adcd1188aaee7a47698e0783339275b9b506a982c98dee119969c599581275f76733e0c2f96380405faed1d8678a0302",\n    "time": "2019-05-15T16:26:42-04:00"\n}',
+       prevhash: '1RrlFkZRs6Srb9W2cNh-cGAzk5bkd9sVEes6ZShJ-ZA=',
+       currhash: '8wL2OsihjC2ihOfyjqs2YwvZbry11veuWucqjhz4f6Y=',
+       summaryhash: 'WQG3tH3CiLHg_upN0ABhKiYWOGwH3n9l4pM04bXwG54=',
+       created: '2019-05-15T16:26:45-04:00',
+       publickey: 'mPLfrUEV_qnwlsNUhbO_ILBulKysO3rPYYWqWAYCA0I=',
+       signature: 'W8OKNuUa8Bma0TpKWmYXxFdyvyuPaq87hvcD6VIwQgfxFowSPM5L_6q7p4FGcXDQtxP41qKHf-ANEfgxOqztAw==' } ] } 
 ```
 
 ## Things that Use Sapient
