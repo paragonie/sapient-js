@@ -1,6 +1,6 @@
 # Sapient.js
 
-[![Travis CI](https://travis-ci.org/paragonie/sapient.svg?branch=master)](https://travis-ci.org/paragonie/sapient)
+[![Travis CI](https://travis-ci.org/paragonie/sapient-js.svg?branch=master)](https://travis-ci.org/paragonie/sapient-js)
 [![npm version](https://img.shields.io/npm/v/sapient.svg)](https://npm.im/sapient)
 
 **Sapient** secures your Node.js applications' server-to-server HTTP(S) traffic even in the wake of a
