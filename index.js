@@ -1,5 +1,3 @@
-const sodium = require('libsodium-wrappers');
-
 module.exports = {
     CryptographyKey: require('./lib/cryptographykey'),
     HeaderMissingException: require('./lib/exception/headermissingexception'),
