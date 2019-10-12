@@ -1,6 +1,6 @@
 {
   "name": "sapient",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Secure API ENgineering Toolkit",
   "main": "index.js",
   "repository": "https://github.com/paragonie/sapient-js",

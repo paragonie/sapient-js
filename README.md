@@ -31,6 +31,19 @@ and responses.
 npm install --save sapient
 ```
 
+**Optional:**
+
+Sapient uses [Sodium-Plus](https://github.com/paragonie/sodium-plus) internally.
+The default Sodium-Plus backend is cross-platform, but you can obtain greater
+performance by installing `sodium-native` too.
+
+```terminal
+npm install --save sodium-native
+```
+
+This isn't strictly necessary, and sodium-native doesn't work in browsers, but
+if you're not targeting browsers, you can get a significant performance boost.
+
 ## Basic Usage
 
 See the [request-promise](https://www.npmjs.com/package/request-promise)
@@ -103,4 +116,5 @@ This should result in the following (except with differing timestamps):
 
 ## Things that Use Sapient
 
+* [Certainty.js](https://github.com/paragonie/certainty-js)
 * [Chronicle](https://github.com/paragonie/chronicle)
